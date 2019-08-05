@@ -18,11 +18,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var answerLogTextView: UITextView!
     
     
-    // 正解の数を入れる変数
+    /// 正解の数を入れる変数
     var trueNum: Int = 0
     
-    // 解答した回数を入れる変数
-    var numerOfTimesAnswered = 0  
+    /// 解答した回数を入れる変数
+    var numerOfTimesAnswered: Int = 0
     
     
     override func viewDidLoad() {
@@ -34,24 +34,21 @@ class ViewController: UIViewController {
         resetTrueNum()
     }
     
-
-    // 決定ボタンが押された時の処理
-    @IBAction func decideButton(_ sender: Any) {
-        guard let answerText = inputTextField.text else { return }
-        
-        checkInputNum(yourAnswer: Int(answerText)!)
-        setupLogMessage(yourAnswer: Int(answerText)!)
-        answerLabel.text = answerText
-        
-        // キーボードを閉じる処理
-        inputTextField.endEditing(true)
-    }
-    
     // 画面を触ったときに呼ばれるやつ
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         // キーボードを閉じる処理
         self.view.endEditing(true)
+    }
+    
+    // 決定ボタンが押された時の処理
+    @IBAction func decideButton(_ sender: Any) {
+        guard let answerText = inputTextField.text else { return }
+        
+        checkInputNum(yourAnswer: Int(answerText)!)
+        
+        // キーボードを閉じる処理
+        inputTextField.endEditing(true)
     }
     
     
@@ -60,15 +57,18 @@ class ViewController: UIViewController {
         // 数の正誤チェック
         if yourAnswer == trueNum {
             // 正解
-            
             // 答えた回数を更新
             numerOfTimesAnswered += 1
-            
+            setupLogMessage(yourAnswer: yourAnswer)
+
             showAllert(title: "正解", message: "\(numerOfTimesAnswered)回目で正解しました？！\n答えをリセットします")
+            
+            
+            // クイズの初期化
             resetTrueNum()
-            trueNum = 0
-            numerOfTimesAnswered = 0
-            answerLabel.text = "???"
+            numerOfTimesAnswered   = 0
+            answerLabel.text       = "???"
+            inputTextField.text    = ""
             answerLogTextView.text = ""
         } else {
             // 不正解
@@ -76,12 +76,17 @@ class ViewController: UIViewController {
             // 答えが100より高い場合
             if yourAnswer > 100 {
                 
+                numerOfTimesAnswered += 1
+                answerLabel.text = String(yourAnswer)
+                setupLogMessage(yourAnswer: yourAnswer)
                 showAllert(title: "エラー", message: "1~100の数字を入れてください")
                 
             // 答えが正しい答えより高い場合
             } else if yourAnswer > trueNum {
                 
                 numerOfTimesAnswered += 1
+                answerLabel.text = String(yourAnswer)
+                setupLogMessage(yourAnswer: yourAnswer)
                 showAllert(title: nil, message: "答えは\(yourAnswer)より下です")
             } else {
                 
@@ -89,6 +94,8 @@ class ViewController: UIViewController {
                 
                 // 答えた回数を更新
                 numerOfTimesAnswered += 1
+                answerLabel.text = String(yourAnswer)
+                setupLogMessage(yourAnswer: yourAnswer)
                 showAllert(title: nil, message: "答えは\(yourAnswer)より上です")
             }
         }
@@ -99,12 +106,10 @@ class ViewController: UIViewController {
 
         // 答えが正解の数より高いか低いかを調べる
         if yourAnswer > trueNum {
-            answerLogTextView.text = answerLogTextView.text + answerLogTextView.text + "[\(numerOfTimesAnswered)回目]答えは\(yourAnswer)より下です\n"
+            answerLogTextView.text = answerLogTextView.text + "[\(numerOfTimesAnswered)回目]答えは\(yourAnswer)より下です\n"
         } else {
             answerLogTextView.text = answerLogTextView.text +  "[\(numerOfTimesAnswered)回目]答えは\(yourAnswer)より上ですです\n"
         }
-        
-
     }
     
     // 問題の数をランダムに生成する関数
