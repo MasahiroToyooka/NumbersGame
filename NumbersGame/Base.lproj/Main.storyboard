@@ -47,6 +47,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title="決定"/>
+                                <connections>
+                                    <action selector="decideButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pap-L3-mGw"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XML-ld-RxW">
                                 <rect key="frame" x="16" y="288" width="382" height="558"/>
@@ -78,6 +81,8 @@
                     </view>
                     <connections>
                         <outlet property="answerLabel" destination="2l3-Lb-gqi" id="N9y-Ha-M21"/>
+                        <outlet property="answerLogTextView" destination="XML-ld-RxW" id="Qs0-GY-ksI"/>
+                        <outlet property="inputTextField" destination="5jf-pz-baY" id="4fg-Pc-q1m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

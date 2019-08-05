@@ -12,7 +12,9 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var answerLabel: UILabel!
     
+    @IBOutlet weak var inputTextField: UITextField!
     
+    @IBOutlet weak var answerLogTextView: UITextView!
     
     
     override func viewDidLoad() {
@@ -20,6 +22,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func decideButton(_ sender: Any) {
+    }
+    
 }
 
