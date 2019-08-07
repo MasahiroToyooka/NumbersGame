@@ -133,10 +133,10 @@ class ViewController: UIViewController {
         // 答えが正解の数より高いか低いかを調べる
         if yourAnswer > trueNum {
             // 低い場合
-            answerLogTextView.text = answerLogTextView.text + "[\(numerOfTimesAnswered)回目]答えは\(yourAnswer)より下です\n"
+            answerLogTextView.text += "[\(numerOfTimesAnswered)回目]答えは\(yourAnswer)より下です\n"
         } else {
             // 高い場合
-            answerLogTextView.text = answerLogTextView.text +  "[\(numerOfTimesAnswered)回目]答えは\(yourAnswer)より上ですです\n"
+            answerLogTextView.text += "[\(numerOfTimesAnswered)回目]答えは\(yourAnswer)より上ですです\n"
         }
     }
     
