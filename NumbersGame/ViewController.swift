@@ -31,6 +31,7 @@ class ViewController: UIViewController {
         // answerLogTextViewを触れないようにする
         answerLogTextView.isUserInteractionEnabled = false
         
+        // numerOfTimesAnsweredに入れる値を決める関数
         resetTrueNum()
     }
     
@@ -43,15 +44,18 @@ class ViewController: UIViewController {
     
     // 決定ボタンが押された時の処理
     @IBAction func decideButton(_ sender: Any) {
-        guard let answerText = inputTextField.text else { return }
-        
-        checkInputNum(yourAnswer: Int(answerText)!)
         
         // キーボードを閉じる処理
         inputTextField.endEditing(true)
+        
+        guard let answerText = inputTextField.text else { return }
+        
+        guard let answerNum = Int(answerText) else { return }
+        
+        checkInputNum(yourAnswer: answerNum)
     }
     
-    
+    // 入力された値に応じて各々処理を呼び出す関数
     func checkInputNum(yourAnswer: Int) {
         
         // 数の正誤チェック
@@ -71,22 +75,34 @@ class ViewController: UIViewController {
             inputTextField.text    = ""
             answerLogTextView.text = ""
         } else {
-            // 不正解
+            // 不正解の場合￥
             
             // 答えが100より高い場合
             if yourAnswer > 100 {
-                
+                // 答えた回数を更新
                 numerOfTimesAnswered += 1
+                
+                // answerLabelの値を反映
                 answerLabel.text = String(yourAnswer)
+                
+                // answerLogTextViewの内容を更新
                 setupLogMessage(yourAnswer: yourAnswer)
+                
+                // アラートを表示
                 showAllert(title: "エラー", message: "1~100の数字を入れてください")
                 
             // 答えが正しい答えより高い場合
             } else if yourAnswer > trueNum {
-                
+                // 答えた回数を更新
                 numerOfTimesAnswered += 1
+                
+                // answerLabelの値を反映
                 answerLabel.text = String(yourAnswer)
+                
+                // answerLogTextViewの内容を更新
                 setupLogMessage(yourAnswer: yourAnswer)
+                
+                // アラートを表示
                 showAllert(title: nil, message: "答えは\(yourAnswer)より下です")
             } else {
                 
@@ -94,8 +110,14 @@ class ViewController: UIViewController {
                 
                 // 答えた回数を更新
                 numerOfTimesAnswered += 1
+                
+                // answerLabelの値を反映
                 answerLabel.text = String(yourAnswer)
+                
+                // answerLogTextViewの内容を更新
                 setupLogMessage(yourAnswer: yourAnswer)
+                
+                // アラートを表示
                 showAllert(title: nil, message: "答えは\(yourAnswer)より上です")
             }
         }
@@ -106,8 +128,10 @@ class ViewController: UIViewController {
 
         // 答えが正解の数より高いか低いかを調べる
         if yourAnswer > trueNum {
+            // 低い場合
             answerLogTextView.text = answerLogTextView.text + "[\(numerOfTimesAnswered)回目]答えは\(yourAnswer)より下です\n"
         } else {
+            // 高い場合
             answerLogTextView.text = answerLogTextView.text +  "[\(numerOfTimesAnswered)回目]答えは\(yourAnswer)より上ですです\n"
         }
     }
