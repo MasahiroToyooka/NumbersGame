@@ -60,11 +60,15 @@ class ViewController: UIViewController {
         
         // 数の正誤チェック
         if yourAnswer == trueNum {
-            // 正解
+            // 正解の場合
+            
             // 答えた回数を更新
             numerOfTimesAnswered += 1
+            
+            // answerLogTextViewの内容を更新
             setupLogMessage(yourAnswer: yourAnswer)
 
+            // アラートの表示
             showAllert(title: "正解", message: "\(numerOfTimesAnswered)回目で正解しました？！\n答えをリセットします")
             
             
@@ -75,7 +79,7 @@ class ViewController: UIViewController {
             inputTextField.text    = ""
             answerLogTextView.text = ""
         } else {
-            // 不正解の場合￥
+            // 不正解の場合
             
             // 答えが100より高い場合
             if yourAnswer > 100 {
