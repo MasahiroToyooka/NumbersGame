@@ -81,8 +81,8 @@ class ViewController: UIViewController {
         } else {
             // 不正解の場合
             
-            // 答えが100より高い場合
-            if yourAnswer > 100 {
+            // 答えが1〜100以外の場合
+            if yourAnswer > 100 || yourAnswer < 1{
                 // 答えた回数を更新
                 numerOfTimesAnswered += 1
                 
@@ -142,7 +142,7 @@ class ViewController: UIViewController {
     
     // 問題の数をランダムに生成する関数
     fileprivate func resetTrueNum() {
-        trueNum = Int.random(in: 0...100)
+        trueNum = Int.random(in: 1...100)
     }
     
     // アラートを表示するための関数
